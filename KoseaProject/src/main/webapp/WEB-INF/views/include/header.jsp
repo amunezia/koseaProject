@@ -29,7 +29,7 @@
 	<c:if test="${userinfo!=null}">
 	<a href="/mypage" class="main">마이페이지</a>
 	<a href="/logout" class="main">로그아웃</a>
-	<span class="fw-bold">${userinfo.userId}&nbsp;님 환영합니다</span>
+	<span class="fw-bold">${userinfo.userId}&nbsp;님</span>
 </c:if>
 	</div>
 	</div>
