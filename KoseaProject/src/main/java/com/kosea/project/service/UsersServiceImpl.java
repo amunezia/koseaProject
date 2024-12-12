@@ -13,8 +13,8 @@ public class UsersServiceImpl implements UsersService {
 	private UsersDAO dao;
 	
 	@Override
-	public int idCheck(UsersVO userId) throws Exception {
-			if(dao.idCheck(userId)==1) {
+	public int idcheck(UsersVO userId) throws Exception {
+			if(dao.idcheck(userId)==1) {
 				return 1;
 			} else {
 					return 0;

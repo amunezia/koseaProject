@@ -14,8 +14,8 @@ public class UsersDAOImpl implements UsersDAO{
 	private static String namespace="com.kosea.project.mappers.UsersMapper";
 	
 	@Override
-	public int idCheck(UsersVO userId) throws Exception {
-		return sql.selectOne(namespace+".idCheck",userId);
+	public int idcheck(UsersVO userId) throws Exception {
+		return sql.selectOne(namespace+".idcheck",userId);
 	}
 
 	@Override
