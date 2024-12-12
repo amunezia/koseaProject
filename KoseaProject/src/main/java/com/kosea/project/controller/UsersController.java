@@ -28,6 +28,8 @@ public class UsersController {
 	public void getSignup() throws Exception{
     }
  
+    
+    //ID중복체크
 	@PostMapping(value="/idcheck", produces="application/json")
 	public ResponseEntity<Integer> idCheck(@RequestBody UsersVO userId) throws Exception{
 		
@@ -35,6 +37,8 @@ public class UsersController {
 		return ResponseEntity.ok().body(checkedId);
 	}
 	
+	
+	//회원가입 기능
 	@PostMapping(value="/users/signup")
 	public String postSignup(UsersVO vo,RedirectAttributes rttr) throws Exception{
 
@@ -42,6 +46,8 @@ public class UsersController {
 		return "redirect:/";
 	}
 	
+	
+	//로그인 기능
 	@PostMapping(value="/users/signin")
 	public String postSignin(UsersVO vo,HttpServletRequest req,RedirectAttributes rttr) throws Exception{
 		UsersVO login=service.signin(vo);
@@ -62,6 +68,8 @@ public class UsersController {
 		return "redirect:/signin";
 	}
 	
+	
+	//로그아웃
 	@GetMapping(value="/logout")
 	public String getLogout(HttpSession session) throws Exception{
 		session.invalidate();
