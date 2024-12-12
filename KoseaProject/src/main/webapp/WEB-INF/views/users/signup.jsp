@@ -26,7 +26,7 @@
 	<input type="email" name="email" placeholder="이메일" class="form-control mb-3">
 </div>
 <div class="form-goup">
-	<input type="date" id="datepicker"name="birthDate" class="form-control mb-3" placeholder="생년월일" readonly>
+	<input type="text" id="datepicker" name="birthDate" class="form-control mb-3" placeholder="생년월일" readonly>
 </div>
 
 <div class="d-flex justify-content-end">

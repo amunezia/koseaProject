@@ -31,9 +31,9 @@ public class UsersController {
     
     //ID중복체크
 	@PostMapping(value="/idcheck", produces="application/json")
-	public ResponseEntity<Integer> idCheck(@RequestBody UsersVO userId) throws Exception{
+	public ResponseEntity<Integer> idcheck(@RequestBody UsersVO userId) throws Exception{
 		
-		int checkedId=service.idCheck(userId);
+		int checkedId=service.idcheck(userId);
 		return ResponseEntity.ok().body(checkedId);
 	}
 	

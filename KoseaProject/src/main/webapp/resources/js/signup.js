@@ -2,13 +2,13 @@
   $('#datepicker').datepicker({
 	  changeMonth: true,
 	  changeYear: true,
-	  yearRange: "2000:2025", // 연도 범위 설정
+	  yearRange: "1950:2025", // 연도 범위 설정
 	  showButtonPanel: true,
 	  dateFormat: 'yy-mm-dd'
   });
 
   $(document).ready(function(){
-  	$("#idCheck").on("click",function(event){
+  	$("#idcheck").on("click",function(event){
   		event.preventDefault();
   		var userId=$("#userId").val();
   		
