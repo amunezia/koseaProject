@@ -23,6 +23,19 @@
 	
 	<context:component-scan base-package="com.kosea.project" />
 	
+	<context:component-scan
+		base-package="com.eatsaround" />
+	<beans:bean id="AdminInterceptor"
+		class="com.kosea.project.interceptor.AdminInterceptor">
+	</beans:bean>
+
+
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin/**" />
+			<beans:ref bean="AdminInterceptor" />
+		</interceptor>
+	</interceptors>
 	
 	
 </beans:beans>
