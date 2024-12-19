@@ -23,4 +23,12 @@
 <update id="modify" parameterType="com.kosea.project.vo.QnaVO">
 	<![CDATA[UPDATE QNA SET qna_title=#{qna_title},qna_content=#{qna_content}, qna_date=SYSDATE WHERE qna_no=#{qna_no}]]>
 </update>
+
+<select id="count" resultType="int">
+	<![CDATA[SELECT count(qna_no) FROM QNA]]>
+</select>
+
+<select id="listPage" parameterType="hashMap" resultType="com.kosea.project.vo.QnaVO">
+	<![CDATA[SELECT * FROM QNA ORDER BY qna_no DESC OFFSET #{displayPost} ROWS FETCH NEXT #{postNum} ROWS ONLY]]>
+</select>
 </mapper>

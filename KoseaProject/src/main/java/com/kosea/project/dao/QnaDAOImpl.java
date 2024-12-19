@@ -1,5 +1,6 @@
 package com.kosea.project.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -41,6 +42,18 @@ public class QnaDAOImpl implements QnaDAO {
 	public void modify(QnaVO vo) throws Exception {
 		sql.update(namespace+".modify",vo);
 	}
-	
+
+	@Override
+	public int count() throws Exception {
+		return sql.selectOne(namespace+".count");
+	}
+
+	@Override
+	public List<QnaVO> listPage(int displayPost, int postNum) throws Exception {
+		HashMap<String,Integer> data=new HashMap<String,Integer>();
+		data.put("displayPost", displayPost);
+		data.put("postNum", postNum);
+		return sql.selectList(namespace+".listPage",data);
+	}
 	
 }

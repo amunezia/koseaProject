@@ -12,10 +12,10 @@ public class QnaVO {
 	//ページ
 	private int num;
 	private int count;
-	private int postNum;
-	private int preNum;
+	private int postNum=10;
+	private int pageNum;
 	private int displayPost;
-	private int pageNumCnt;
+	private int pageNumCnt=10;
 	private int endPageNum;
 	private int startPageNum;
 	private boolean prev;
@@ -64,6 +64,7 @@ public class QnaVO {
 	}
 	public void setCount(int count) {
 		this.count = count;
+		pagenation();
 	}
 	public int getPostNum() {
 		return postNum;
@@ -71,11 +72,11 @@ public class QnaVO {
 	public void setPostNum(int postNum) {
 		this.postNum = postNum;
 	}
-	public int getPreNum() {
-		return preNum;
+	public int getPageNum() {
+		return pageNum;
 	}
-	public void setPreNum(int preNum) {
-		this.preNum = preNum;
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
 	}
 	public int getDisplayPost() {
 		return displayPost;
@@ -113,8 +114,19 @@ public class QnaVO {
 	public void setNext(boolean next) {
 		this.next = next;
 	}
+	
 	private void pagenation() {
-		endPageNum=(int)(Math.ceil((double)num/(double)pageNumCnt)*pageNumCnt);
+		startPageNum=(int)Math.ceil((double)(num-1)/pageNumCnt)*pageNumCnt+1;
+		endPageNum=startPageNum+pageNumCnt-1;
 		
+		pageNum=(int)Math.ceil((double)count/postNum);
+		if(endPageNum>pageNum) {
+			endPageNum=pageNum;
+		}
+		
+		prev=startPageNum==1?false:true;
+		next=endPageNum*pageNumCnt>=count?false:true;
+		
+		displayPost=(num-1)*postNum;
 	}
 }

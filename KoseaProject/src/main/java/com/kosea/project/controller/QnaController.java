@@ -38,8 +38,16 @@ public class QnaController {
 	}
 	
 	@GetMapping(value="/qnaList")
-	public void getQnaList(Model model) throws Exception{
-		List<QnaVO> qnaList=qnaService.list();
+	public void getQnaList(Model model,@RequestParam(value="num",defaultValue="1")int num) throws Exception{
+		QnaVO page=new QnaVO();
+		page.setNum(num);
+		page.setCount(qnaService.count());
+		
+		List<QnaVO> qnaList=null;
+		qnaList=qnaService.listPage(page.getDisplayPost(),page.getPostNum());
+		
+		model.addAttribute("page",page);
+		model.addAttribute("slect",num);
 		model.addAttribute("qnaList",qnaList);
 	}
 	

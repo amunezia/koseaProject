@@ -23,4 +23,25 @@
 	</tbody>
 </table>
 
+<div>
+	<ul>
+    	<c:if test="${page.prev}">
+			<li ><a href="${path}/qna/qnaList?num=${page.startPageNum - 1}">[이전]</a></li>
+        </c:if>
+        
+		<c:forEach begin='${page.startPageNum}' end="${page.endPageNum}" var="num">
+        	<li> <c:if test="${select == num}"></c:if>
+	            <a href="${path}/qna/qnaList?num=${num}">
+		            <c:if test="${select == num}"><b>${num}</b></c:if>
+		            <c:if test="${select != num}">${num}</c:if>
+	            </a>
+            </li>
+		</c:forEach>
+            
+         <c:if test="${page.next}">
+        	<li ><a href="${path}/qna/qnaList?num=${page.endPageNum + 1}">[다음]</a></li>
+    	</c:if>
+	</ul>
+</div>
+
 <jsp:include page="../include/footer.jsp" flush="false"/>
