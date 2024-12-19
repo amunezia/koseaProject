@@ -16,5 +16,14 @@ public class HomeController {
     public void qna() throws Exception{
     }
 
+    //장바구니 이동
+    @GetMapping(value="/cart/cart")
+    public void cart() throws Exception{
+    }
+    
+    //도서상품페이지 이동
+    @GetMapping(value="/category/bestSellerBook")
+    public void books() throws Exception{
+    }
 
 }

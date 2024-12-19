@@ -33,5 +33,20 @@ public class UsersDAOImpl implements UsersDAO{
 		return sql.selectOne(namespace+".viewUserInfo",vo);
 	}
 
+	@Override
+	public String findidByPhone(UsersVO vo) throws Exception {
+		return sql.selectOne(namespace+".findidByPhone", vo);
+	}
+
+	@Override
+	public String findidByEmail(UsersVO vo) throws Exception {
+		return sql.selectOne(namespace+".findidByEmail", vo);
+	}
+
+	@Override
+	public UsersVO findpw(UsersVO vo) throws Exception {
+		return sql.selectOne(namespace+".findpw", vo);
+	}
+
 	
 }

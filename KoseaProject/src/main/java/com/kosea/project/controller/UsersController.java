@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -74,6 +75,64 @@ public class UsersController {
 	public String getLogout(HttpSession session) throws Exception{
 		session.invalidate();
 		return "redirect:/";
+	}
+
+	
+	//아이디 찾기
+	@GetMapping(value="/users/findid")
+	public void getFindid() throws Exception{
+	}
+	
+	@PostMapping(value="/users/findid/phone")
+	public String postFindidByPhone(UsersVO vo, RedirectAttributes rttr) throws Exception{
+	    String userId = service.findidByPhone(vo);
+	    
+	    rttr.addFlashAttribute("userId", userId);
+	    
+	    return "redirect:/users/findidresult";
+	}
+
+	@PostMapping(value="/users/findid/email")
+	public String postFindidByEmail(UsersVO vo, RedirectAttributes rttr) throws Exception{
+	    String userId = service.findidByEmail(vo);
+	    
+	    rttr.addFlashAttribute("userId", userId);
+	    
+	    return "redirect:/users/findidresult";
+	}
+	
+	@GetMapping(value = "/users/findidresult")
+	public String getFindidResult(Model model) {
+		
+		String userId = (String) model.getAttribute("userId");
+		
+	    model.addAttribute("userId", userId);
+	    
+		return "/users/findidresult";
+	}
+	
+	//비밀번호찾기
+	@GetMapping(value="/users/findpw")
+	public void getFindpw() throws Exception{
+	}
+	
+	@PostMapping(value="/users/findpw")
+	public String postFindpw(UsersVO vo, RedirectAttributes rttr) throws Exception{
+		
+		UsersVO user = service.findpw(vo);
+		
+		rttr.addFlashAttribute("user", user);
+		
+		return "redirect:/users/findpwselect";
+	}
+	
+	@GetMapping(value="/users/findpwselect")
+	public String getFindpwSelect(Model model) {
+		
+		UsersVO user = (UsersVO) model.getAttribute("user");
+		
+		model.addAttribute("user",user);
+		return "/users/findpwselect";
 	}
 
 }

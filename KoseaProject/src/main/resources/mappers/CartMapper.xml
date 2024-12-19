@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kosea.project.mapper.CartMapper">
+
+    <!-- カートアイテム一覧を取得 -->
+    <select id="getCartItems" parameterType="string" resultType="com.kosea.project.vo.CartVO">
+        SELECT * FROM cart WHERE user_id = #{userId}
+    </select>
+
+    <!-- カートに商品を追加 -->
+    <insert id="addItemToCart" parameterType="com.kosea.project.vo.CartVO">
+        INSERT INTO cart (user_id, product_id, quantity) 
+        VALUES (#{userId}, #{productId}, #{quantity})
+    </insert>
+
+    <!-- カート内の商品数量を変更 -->
+    <update id="updateItemQuantity" parameterType="com.kosea.project.vo.CartVO">
+        UPDATE cart SET quantity = #{quantity} WHERE cart_id = #{cartId}
+    </update>
+
+    <!-- カートから商品を削除 -->
+    <delete id="removeItemFromCart" parameterType="int">
+        DELETE FROM cart WHERE cart_id = #{cartId}
+    </delete>
+
+    <!-- カート内の商品を全て削除 -->
+    <delete id="clearCart" parameterType="string">
+        DELETE FROM cart WHERE user_id = #{userId}
+    </delete>
+
+    <!-- 購入処理 -->
+    <update id="purchaseItems" parameterType="string">
+        UPDATE cart SET status = 'purchased' WHERE user_id = #{userId}
+    </update>
+
+</mapper>

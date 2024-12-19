@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kosea.project.mappers.BooksMapper">
+
+    <!-- 書籍一覧を取得するクエリ -->
+    <select id="list" resultType="com.kosea.project.vo.BooksVO">
+    SELECT 
+        BOOK_ID AS bookId, 
+        NAME AS name, 
+        UNIT_PRICE AS unitPrice, 
+        AUTHOR AS author, 
+        DESCRIPTION AS description, 
+        PUBLISHER AS publisher, 
+        CATEGORY_ID AS category,
+        UNITS_IN_STOCK AS unitsInStock, 
+        RELEASE_DATE AS releaseDate, 
+        CONDITION AS condition, 
+        FILENAME AS filename
+    FROM BOOKS
+    ORDER BY RELEASE_DATE DESC
+</select>
+
+</mapper>

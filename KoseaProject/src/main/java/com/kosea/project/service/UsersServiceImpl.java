@@ -36,4 +36,20 @@ public class UsersServiceImpl implements UsersService {
 	public UsersVO viewUserInfo(UsersVO vo) throws Exception {
 		return dao.viewUserInfo(vo);
 	}
+
+	@Override
+	public String findidByPhone(UsersVO vo) throws Exception {
+		return dao.findidByPhone(vo);
+	}
+
+	@Override
+	public String findidByEmail(UsersVO vo) throws Exception {
+		return dao.findidByEmail(vo);
+	}
+
+	@Override
+	public UsersVO findpw(UsersVO vo) throws Exception {
+		return dao.findpw(vo);
+	}
+	
 }
