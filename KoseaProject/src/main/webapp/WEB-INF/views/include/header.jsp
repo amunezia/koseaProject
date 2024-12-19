@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="ko">
@@ -15,9 +17,8 @@
 <link rel="stylesheet"  href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="${path}/resources/css/header.css" rel="stylesheet">
-<link href="${path}/resources/css/footer.css" rel="stylesheet">
 <link href="${path}/resources/css/index.css" rel="stylesheet">
-
+<link href="${path}/resources/css/footer.css" rel="stylesheet">
 
 <title>메인 페이지</title>
 </head>
@@ -43,7 +44,7 @@
        <li><a class="dropdown-item" href="${path}/category/sports">스포츠</a></li>
        <li><a class="dropdown-item" href="${path}/category/clothing">의류</a></li>
        <li><a class="dropdown-item" href="${path}/category/electronics">가전 제품</a></li>
-       <li><a class="dropdown-item" href="${path}/category/books">도서</a></li>
+       <li><a class="dropdown-item" href="${path}/category/booksList">도서</a></li>
       </ul>
      </li>
     </ul>
@@ -55,6 +56,15 @@
         </button>
     </form>
 
+	<div class="d-flex justify-content-between align-items-center gap-3">
+    <c:if test="${userinfo != null}">
+        <c:if test="${userinfo.verify == 9}">
+
+                <a class="nav-link" href="${path}/admin/index">관리자 화면</a>
+
+        </c:if>
+    </c:if>
+
     <c:choose>
      <c:when test="${userinfo != null}">
             <span class="fw-bold">${userinfo.userId}&nbsp;님 환영합니다</span>
@@ -62,7 +72,8 @@
         </c:when>
         <c:otherwise>
             <a href="${path}/users/signin" class="btn btn-outline-primary me-2">로그인</a>
-            <a href="${path}/users/signup" class="btn btn-outline-success ">회원가입</a>
+            <a href="${path}/users/signup" class="btn btn-outline-success me-2">회원가입</a>
+            <a href="${path}/users/signup" class="btn btn-outline-success">판매자 가입</a>
         </c:otherwise>
     </c:choose>
    
