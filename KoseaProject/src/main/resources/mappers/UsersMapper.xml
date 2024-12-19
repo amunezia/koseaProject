@@ -9,10 +9,25 @@
 <insert id="signup" parameterType="com.kosea.project.vo.UsersVO">
 	<![CDATA[INSERT INTO users (userId,userPw,userPwRe,userName,phoneNum,email,birthDate) VALUES (#{userId},#{userPw},#{userPwRe},#{userName},#{phoneNum},#{email},#{birthDate})]]>
 </insert>
+
 <select id="signin" resultType="com.kosea.project.vo.UsersVO">
 	<![CDATA[SELECT userId,userPw,verify FROM users WHERE userId=#{userId}]]>
 </select>
+
 <select id="viewUserInfo" resultType="com.kosea.project.vo.UsersVO">
 	<![CDATA[SELECT * FROM users WHERE userId=#{userId}]]>
 </select>
+
+<select id="findidByPhone" resultType="java.lang.String">
+	<![CDATA[SELECT userId FROM users WHERE userName=#{userName} AND phoneNum=#{phoneNum}]]>
+</select>
+
+<select id="findidByEmail" parameterType="String" resultType="java.lang.String">
+	<![CDATA[SELECT userId FROM users WHERE email=#{email}]]>
+</select>
+
+<select id="findpw" parameterType="com.kosea.project.vo.UsersVO" resultType="com.kosea.project.vo.UsersVO">
+	<![CDATA[SELECT email,phoneNum FROM users WHERE userId=#{userId}]]>
+</select>
+
 </mapper>

@@ -11,4 +11,11 @@ public interface UsersService {
 	UsersVO signin(UsersVO vo) throws Exception;
 	
 	UsersVO viewUserInfo(UsersVO vo)throws Exception;
+	
+	String findidByPhone(UsersVO vo)throws Exception;
+	
+	String findidByEmail(UsersVO vo)throws Exception;
+	
+	UsersVO findpw(UsersVO vo)throws Exception;
+	
 }
