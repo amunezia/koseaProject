@@ -29,6 +29,9 @@
 </select>
 
 <select id="listPage" parameterType="hashMap" resultType="com.kosea.project.vo.QnaVO">
-	<![CDATA[SELECT * FROM QNA ORDER BY qna_no DESC OFFSET #{displayPost} ROWS FETCH NEXT #{postNum} ROWS ONLY]]>
+	<![CDATA[SELECT qna_no,qna_title,qna_content,qna_writer,qna_date from 
+	(SELECT /*+ INDEX_DESC(QNA PK_QNA) */ ROWNUM rn,qna_no,qna_title,qna_content,qna_writer,qna_date 
+	FROM qna WHERE ROWNUM<=#{num}*#{pageNumCnt})
+	 WHERE rn>(#{num}-1)*#{pageNumCnt}]]>
 </select>
 </mapper>

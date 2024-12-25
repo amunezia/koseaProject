@@ -49,10 +49,10 @@ public class QnaDAOImpl implements QnaDAO {
 	}
 
 	@Override
-	public List<QnaVO> listPage(int displayPost, int postNum) throws Exception {
+	public List<QnaVO> listPage(int num, int pageNumCnt) throws Exception {
 		HashMap<String,Integer> data=new HashMap<String,Integer>();
-		data.put("displayPost", displayPost);
-		data.put("postNum", postNum);
+		data.put("num", num);
+		data.put("pageNumCnt", pageNumCnt);
 		return sql.selectList(namespace+".listPage",data);
 	}
 	
