@@ -26,8 +26,12 @@
 	<![CDATA[SELECT userId FROM users WHERE email=#{email}]]>
 </select>
 
-<select id="findpw" parameterType="com.kosea.project.vo.UsersVO" resultType="com.kosea.project.vo.UsersVO">
-	<![CDATA[SELECT email,phoneNum FROM users WHERE userId=#{userId}]]>
+<select id="findpw" parameterType="com.kosea.project.vo.UsersVO" resultType="java.lang.String">
+	<![CDATA[SELECT email FROM users WHERE userId=#{userId}]]>
 </select>
+
+<update id="updatePw" parameterType="map">
+	<![CDATA[UPDATE users SET userPw = #{userPw}, userPwRe = #{userPwRe} WHERE userId = #{userId}]]>
+</update>
 
 </mapper>

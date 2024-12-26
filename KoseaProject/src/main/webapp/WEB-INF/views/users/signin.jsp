@@ -8,6 +8,13 @@
 <div class="container">
 <div class="row justify-content-center h-100">
 <div class="col-md-6 col-lg-4">
+	
+	<c:if test="${not empty message}">
+    <div class="alert alert-danger">
+        ${message}
+    </div>
+</c:if>
+
 <form method="post" class="card mt-5 p-4 px-3">
 	<div class="form-group d-flex justify-content-center">
 		<input type="text" name="userId" placeholder="아이디" class="form-control mb-3">

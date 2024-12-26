@@ -48,8 +48,11 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public UsersVO findpw(UsersVO vo) throws Exception {
-		return dao.findpw(vo);
+	public String findpw(UsersVO vo) throws Exception {
+			return dao.findpw(vo);
 	}
 	
+	public boolean updatePw(String userId, String userPw, String userPwRe)throws Exception{
+		return dao.updatePw(userId, userPw, userPwRe); 
+	}
 }

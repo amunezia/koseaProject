@@ -1,5 +1,8 @@
 package com.kosea.project.dao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -44,9 +47,18 @@ public class UsersDAOImpl implements UsersDAO{
 	}
 
 	@Override
-	public UsersVO findpw(UsersVO vo) throws Exception {
+	public String findpw(UsersVO vo) throws Exception {
 		return sql.selectOne(namespace+".findpw", vo);
 	}
 
-	
+	@Override
+	public boolean updatePw(String userId, String userPw, String userPwRe)throws Exception{
+		Map<String, Object> uppw = new HashMap<>();
+		uppw.put("userId", userId);
+		uppw.put("userPw", userPw);
+		uppw.put("userPwRe", userPwRe);
+		
+		int result = sql.update(namespace + ".updatePw", uppw);	
+		return result > 0 ;
+	}
 }
