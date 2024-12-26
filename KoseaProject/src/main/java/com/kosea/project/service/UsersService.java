@@ -16,6 +16,7 @@ public interface UsersService {
 	
 	String findidByEmail(UsersVO vo)throws Exception;
 	
-	UsersVO findpw(UsersVO vo)throws Exception;
+	String findpw(UsersVO vo) throws Exception;
 	
+	boolean updatePw(String userId, String userPw, String userPwRe)throws Exception;
 }

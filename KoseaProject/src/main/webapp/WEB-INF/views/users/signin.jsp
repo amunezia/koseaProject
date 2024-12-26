@@ -8,6 +8,13 @@
 <div class="container">
 <div class="row justify-content-center h-100">
 <div class="col-md-6 col-lg-4">
+	
+	<c:if test="${not empty message}">
+    <div class="alert alert-danger">
+        ${message}
+    </div>
+</c:if>
+
 <form method="post" class="card mt-5 p-4 px-3">
 	<div class="form-group d-flex justify-content-center">
 		<input type="text" name="userId" placeholder="아이디" class="form-control mb-3">
@@ -23,12 +30,6 @@
 	<div class="d-flex justify-content-end">
 		<input type="submit" value="로그인" class="btn btn-outline-primary mt-5 mb-3 me-3">
 	</div>
-	<c:if test="${msg==0}">
-		<p class="text-danger d-flex justify-content-end">비밀번호가 다름</p>
-	</c:if>
-	<c:if test="${msg==-1}">
-		<p class="text-danger d-flex justify-content-end">아이디가 없음</p>
-	</c:if>
 </form>
 <script>
 

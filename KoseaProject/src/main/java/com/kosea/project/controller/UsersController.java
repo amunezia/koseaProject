@@ -10,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kosea.project.service.UsersService;
+import com.kosea.project.util.Utils;
 import com.kosea.project.vo.UsersVO;
 
 @Controller
@@ -60,13 +62,13 @@ public class UsersController {
 				return "redirect:/";
 			}else {
 				
-				rttr.addFlashAttribute("msg",0);
-				return "redirect:/signin";
+				rttr.addFlashAttribute("message","등록하신 정보와 맞지 않습니다");
+				return "redirect:/users/signin";
 			}
 		}
 		
-		rttr.addFlashAttribute("msg",-1);
-		return "redirect:/signin";
+		rttr.addFlashAttribute("message","아이디가 없습니다");
+		return "redirect:/users/signin";
 	}
 	
 	
@@ -119,20 +121,58 @@ public class UsersController {
 	@PostMapping(value="/users/findpw")
 	public String postFindpw(UsersVO vo, RedirectAttributes rttr) throws Exception{
 		
-		UsersVO user = service.findpw(vo);
+		String email = service.findpw(vo);
 		
-		rttr.addFlashAttribute("user", user);
+		 if (email != null && !email.isEmpty()) {
+	            // 이메일 보내기
+	            boolean isMailSent = Utils.sendMail(email, vo.getUserId());
+		 }
 		
-		return "redirect:/users/findpwselect";
+		rttr.addFlashAttribute("email", email);
+		
+		return "redirect:/users/findpwresult";
 	}
 	
-	@GetMapping(value="/users/findpwselect")
-	public String getFindpwSelect(Model model) {
+	@GetMapping(value="/users/findpwresult")
+	public String getFindpwResult(Model model) {
 		
-		UsersVO user = (UsersVO) model.getAttribute("user");
+		String email= (String) model.getAttribute("email");
 		
-		model.addAttribute("user",user);
-		return "/users/findpwselect";
+		model.addAttribute("email",email);
+		return "/users/findpwresult";
 	}
+	
+	//메일로 비밀번호 찾기사이트에 userId 전송
+	@GetMapping("/users/reset-password")
+	public String getResetPassword(@RequestParam("userId") String userId, Model model) {
+	    model.addAttribute("userId", userId);
+	    return "/users/resetpw";
+	}
+	
+	@PostMapping("/users/reset-password")
+	public String postResetPassword(@RequestParam("userId") String userId,
+	                                 @RequestParam("userPw") String userPw,
+	                                 @RequestParam("userPwRe") String userPwRe,
+	                                 RedirectAttributes rttr) throws Exception {
 
+	    if (userId.contains(",")) {
+	        userId = userId.split(",")[0];
+	    }
+	    
+	    if (!userPw.equals(userPwRe)) {
+	        rttr.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
+	        return "redirect:/users/reset-password?userId=" + userId;
+	    }
+
+	    // 비밀번호 변경 로직 (service를 통해 비밀번호 업데이트)
+	    boolean isUpdated = service.updatePw(userId, userPw, userPwRe);
+
+	    if (isUpdated) {
+	        rttr.addFlashAttribute("message", "비밀번호가 성공적으로 변경되었습니다.");
+	        return "redirect:/users/signin";  // 로그인 페이지로 리다이렉트
+	    } else {
+	        rttr.addFlashAttribute("message", "비밀번호 변경에 실패했습니다.");
+	        return "redirect:/users/reset-password?userId=" + userId;  // 다시 시도
+	    }
+	}
 }

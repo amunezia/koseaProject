@@ -178,6 +178,20 @@
     <version>2.9.10</version>
 </dependency>
 	
+	<!-- 메일보내기 12-25-->
+    <dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>javax.mail-api</artifactId>
+        <version>1.6.2</version> <!-- javax.mail 버전 -->
+    </dependency>
+
+    <!-- 메일 전송을 위한 JavaMail 구현체 -->
+    <dependency>
+        <groupId>com.sun.mail</groupId>
+        <artifactId>javax.mail</artifactId>
+        <version>1.6.2</version> <!-- javax.mail 구현체 버전 -->
+    </dependency>
+	
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
