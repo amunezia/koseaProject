@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kosea.project.mappers.AdminMapper">
+
+<select id="getUserList" parameterType="HashMap" resultType="com.kosea.project.vo.UsersVO">
+<![CDATA[
+select * from ( selct userId, userName, email, phoneNum, regDate,
+				ROW_NUMBER() OVER (ORDER BY userName ASC) AS rn
+				from users)
+				where WHERE rn BETWEEN #{start} + 1 AND #{start} + #{pageSize}
+]]>
+</select>
+
+<select id="searchUser" parameterType="string" resultType="com.kosea.project.vo.UsersVO">
+<![CDATA[
+ select * from users 
+ WHERE USERNAME LIKE '%' || #{search} || '%' OR
+              EMAIL LIKE '%' || #{search} || '%' OR
+              PHONENUM LIKE '%' || #{search} || '%' 
+        ORDER BY userName ASC
+]]>
+
+</select>
+
+<select id="getUserCount" resultType="int">
+<![CDATA[
+select count (*) from users
+]]>
+</select>
+
+</mapper>
