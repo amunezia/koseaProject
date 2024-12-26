@@ -44,7 +44,7 @@ public class QnaController {
 		page.setCount(qnaService.count());
 		
 		List<QnaVO> qnaList=null;
-		qnaList=qnaService.listPage(page.getDisplayPost(),page.getPostNum());
+		qnaList=qnaService.listPage(page.getNum(),page.getPageNumCnt());
 		
 		model.addAttribute("page",page);
 		model.addAttribute("slect",num);

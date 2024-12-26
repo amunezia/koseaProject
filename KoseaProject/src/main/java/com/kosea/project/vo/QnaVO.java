@@ -9,18 +9,6 @@ public class QnaVO {
 	private String qna_writer;
 	private Date qna_date;
 	
-	//ページ
-	private int num;
-	private int count;
-	private int postNum=10;
-	private int pageNum;
-	private int displayPost;
-	private int pageNumCnt=10;
-	private int endPageNum;
-	private int startPageNum;
-	private boolean prev;
-	private boolean next;
-	
 	public int getQna_no() {
 		return qna_no;
 	}
@@ -51,6 +39,18 @@ public class QnaVO {
 	public void setQna_date(Date qna_date) {
 		this.qna_date = qna_date;
 	}
+	
+	//ページ
+	private int num;
+	private int count;
+	private int postNum=10;
+	private int pageNum;
+	private int displayPost;
+	private int pageNumCnt=10;
+	private int endPageNum;
+	private int startPageNum;
+	private boolean prev;
+	private boolean next;
 	
 	//ページ
 	public int getNum() {
@@ -116,12 +116,15 @@ public class QnaVO {
 	}
 	
 	private void pagenation() {
-		startPageNum=(int)Math.ceil((double)(num-1)/pageNumCnt)*pageNumCnt+1;
+		startPageNum=((int)Math.ceil((double)((num-1)/pageNumCnt)))*pageNumCnt+1;
 		endPageNum=startPageNum+pageNumCnt-1;
-		
+			
 		pageNum=(int)Math.ceil((double)count/postNum);
 		if(endPageNum>pageNum) {
 			endPageNum=pageNum;
+		}
+		if(num>pageNum) {
+			num=pageNum;
 		}
 		
 		prev=startPageNum==1?false:true;

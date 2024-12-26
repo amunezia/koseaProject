@@ -18,5 +18,5 @@ public interface QnaService {
 	
 	int count() throws Exception;
 	
-	List<QnaVO> listPage(int displayPost,int postNum) throws Exception;
+	List<QnaVO> listPage(int num,int pageNumCnt) throws Exception;
 }

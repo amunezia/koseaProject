@@ -45,8 +45,8 @@ public class QnaServiceImpl implements QnaService {
 	}
 
 	@Override
-	public List<QnaVO> listPage(int displayPost, int postNum) throws Exception {
-		return qnaDAO.listPage(displayPost,postNum);
+	public List<QnaVO> listPage(int num, int pageNumCnt) throws Exception {
+		return qnaDAO.listPage(num,pageNumCnt);
 	}
 
 }
