@@ -30,12 +30,6 @@
 	<div class="d-flex justify-content-end">
 		<input type="submit" value="로그인" class="btn btn-outline-primary mt-5 mb-3 me-3">
 	</div>
-	<c:if test="${msg==0}">
-		<p class="text-danger d-flex justify-content-end">비밀번호가 다름</p>
-	</c:if>
-	<c:if test="${msg==-1}">
-		<p class="text-danger d-flex justify-content-end">아이디가 없음</p>
-	</c:if>
 </form>
 <script>
 

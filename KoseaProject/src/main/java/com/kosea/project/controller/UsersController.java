@@ -62,13 +62,13 @@ public class UsersController {
 				return "redirect:/";
 			}else {
 				
-				rttr.addFlashAttribute("msg",0);
-				return "redirect:/signin";
+				rttr.addFlashAttribute("message","등록하신 정보와 맞지 않습니다");
+				return "redirect:/users/signin";
 			}
 		}
 		
-		rttr.addFlashAttribute("msg",-1);
-		return "redirect:/signin";
+		rttr.addFlashAttribute("message","아이디가 없습니다");
+		return "redirect:/users/signin";
 	}
 	
 	
