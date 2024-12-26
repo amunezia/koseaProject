@@ -12,13 +12,17 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
 
-<link rel="stylesheet"  href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="${path}/resources/css/header.css" rel="stylesheet">
 <link href="${path}/resources/css/index.css" rel="stylesheet">
 <link href="${path}/resources/css/footer.css" rel="stylesheet">
+
+<script type="module" defer src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule defer src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 
 <title>메인 페이지</title>
 </head>
@@ -37,7 +41,7 @@
      <li class="nav-item"><a class="nav-link" href="${path}/qna/qna">Q&A</a></li>
      <!-- 상품보기 ホバードロップダウン -->
      <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="productDropdown" role="button">
+		<a class="nav-link dropdown-toggle" href="#" id="productDropdown" role="button" aria-haspopup="true" aria-expanded="false">
        상품보기
       </a>
       <ul class="dropdown-menu" aria-labelledby="productDropdown">
@@ -61,6 +65,15 @@
         <c:if test="${userinfo.verify == 9}">
 
                 <a class="nav-link" href="${path}/admin/index">관리자 화면</a>
+
+        </c:if>
+    </c:if>
+    
+    <div class="d-flex justify-content-between align-items-center gap-3">
+    <c:if test="${userinfo != null}">
+        <c:if test="${userinfo.verify == 5}">
+
+                <a class="nav-link" href="${path}/seller/sellerPage">판매자 화면</a>
 
         </c:if>
     </c:if>
@@ -88,9 +101,6 @@
    </div>
   </div>
  </nav>
- 
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
 
