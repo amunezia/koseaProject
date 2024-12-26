@@ -15,4 +15,8 @@ public interface QnaService {
 	void delete(int qna_no) throws Exception;
 	
 	void modify(QnaVO vo) throws Exception;
+	
+	int count() throws Exception;
+	
+	List<QnaVO> listPage(int num,int pageNumCnt) throws Exception;
 }

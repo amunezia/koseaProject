@@ -3,11 +3,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<footer class="bg-light text-center">
+<footer>
     <div class="content">
         <p>&copy; 2024 KoseaProject. All Rights Reserved.</p>
         <p>
-            <a href="">반품 안내</a> | <a href="">개인정보 보호정책</a>
+            <a href="#">반품 안내</a> | <a href="#">개인정보 보호정책</a>
         </p>
     </div>
 </footer>

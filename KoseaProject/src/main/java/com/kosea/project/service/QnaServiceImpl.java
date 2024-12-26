@@ -39,4 +39,14 @@ public class QnaServiceImpl implements QnaService {
 		qnaDAO.modify(vo);
 	}
 
+	@Override
+	public int count() throws Exception {
+		return qnaDAO.count();
+	}
+
+	@Override
+	public List<QnaVO> listPage(int num, int pageNumCnt) throws Exception {
+		return qnaDAO.listPage(num,pageNumCnt);
+	}
+
 }

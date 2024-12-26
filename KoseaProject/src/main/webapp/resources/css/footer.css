@@ -1,38 +1,28 @@
-/* フッター */
+/* footer.css */
 footer {
-    background-color: #f8f9fa;
-    color: #333;
-    font-size: 0.875rem;
-    padding: 10px 0;
-    text-align: center;
     position: fixed;
     bottom: 0;
+    left: 0;
     width: 100%;
-    z-index: 999;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #f8f9fa;
+    color: #333;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
 }
 
-footer p {
-    margin: 0;
+body {
+    overflow-y: auto; /* 垂直スクロールを許可 */
+    padding-bottom: 60px; /* フッターが重ならないよう余白を追加 */
 }
 
-footer a {
-    color: #007bff;
-    text-decoration: none;
-}
 
-footer a:hover {
-    text-decoration: underline;
-}
-
-/* スクロール可能にする */
-footer .content {
-    max-height: 150px; /* スクロール領域の高さ */
-    overflow-y: auto;  /* 縦方向にスクロール */
-    padding: 0 20px;
-    margin-top: 10px;
-}
-
-footer p + p {
-    margin-top: 10px;
+/* メディアクエリでレスポンシブ対応 */
+@media screen and (max-width: 768px) {
+    footer {
+        font-size: 12px; /* 文字サイズを小さくする */
+        padding: 8px 0;  /* 余白を調整 */
+    }
 }
