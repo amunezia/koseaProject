@@ -9,7 +9,7 @@
 	</li>
 
 	<li class="list-group-item">
-		<a href="/admin/users/list">
+		<a href="/admin/users/userlist">
 		회원 리스트
 		</a>
 	</li>
