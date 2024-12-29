@@ -19,4 +19,8 @@ public interface UsersService {
 	String findpw(UsersVO vo) throws Exception;
 	
 	boolean updatePw(String userId, String userPw, String userPwRe)throws Exception;
+	
+	boolean resetPw(String token, String userPw, String userPwRe) throws Exception ;
+	
+	UsersVO getUserByToken(String token) throws Exception;
 }

@@ -1,5 +1,7 @@
 package com.kosea.project.util;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -12,8 +14,18 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.kosea.project.dao.UsersDAO;
+
+@Service
 public class Utils {
-    public static boolean sendMail(String recipientEmail, String userId) {
+	
+	@Autowired
+    private  UsersDAO dao;
+    
+    public  boolean sendMail(String recipientEmail, String userId) throws Exception {
         // SMTP 서버 설정 (Gmail 사용 예)
         String host = "smtp.gmail.com";
         String from = "koseaproject@gmail.com";  // 보내는 사람 이메일
@@ -36,12 +48,15 @@ public class Utils {
         try {
         	
         	String token = UUID.randomUUID().toString();
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.HOUR, 1);  // 1시간 뒤
+            Date tokenTime = calendar.getTime();
         	
             // 이메일 제목과 내용 정의
             String subject = "비밀번호 찾기 안내";
             String body = "안녕하세요, " + userId + "님!\n\n"
                         + "비밀번호 찾기 요청을 받았습니다. 아래 링크를 클릭하여 비밀번호를 재설정하십시오.\n\n"
-                        + "http://localhost:8080/users/reset-password?userId=" + userId;
+                        + "http://localhost:8080/users/reset-password?token=" + token;
 
             // 메일 메시지 생성
             MimeMessage message = new MimeMessage(session);
@@ -52,8 +67,10 @@ public class Utils {
 
             // 메일 전송
             Transport.send(message);
-
+            
+            dao.saveResetToken(userId, token,tokenTime);
             return true;  // 메일 전송 성공
+            
         } catch (MessagingException e) {
             e.printStackTrace();
             return false;  // 메일 전송 실패

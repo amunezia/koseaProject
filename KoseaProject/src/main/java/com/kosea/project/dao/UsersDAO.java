@@ -1,5 +1,7 @@
 package com.kosea.project.dao;
 
+import java.util.Date;
+
 import com.kosea.project.vo.UsersVO;
 
 public interface UsersDAO {
@@ -19,4 +21,10 @@ public interface UsersDAO {
 	String findpw(UsersVO email)throws Exception;
 	
 	boolean updatePw(String userId, String userPw, String userPwRe)throws Exception;
+	
+	UsersVO getUserByToken(String token) throws Exception;
+	
+	public void saveResetToken(String userId, String token, Date time) throws Exception;
+	 
+	public void deleteResetToken(String userId) throws Exception;
 }
