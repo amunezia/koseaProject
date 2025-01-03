@@ -8,6 +8,7 @@ public class QnaVO {
 	private String qna_content;
 	private String qna_writer;
 	private Date qna_date;
+	private String qna_tag;
 	
 	public int getQna_no() {
 		return qna_no;
@@ -40,6 +41,13 @@ public class QnaVO {
 		this.qna_date = qna_date;
 	}
 	
+	public String getQna_tag() {
+		return qna_tag;
+	}
+	public void setQna_tag(String qna_tag) {
+		this.qna_tag = qna_tag;
+	}
+
 	//ページ
 	private int num;
 	private int count;
@@ -132,4 +140,30 @@ public class QnaVO {
 		
 		displayPost=(num-1)*postNum;
 	}
+	
+	//検索
+	private String keyword;
+	private String searchType;
+
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	public String getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+	
+	public String getSearchTypeKeyword() {
+		if(searchType.equals("")||keyword.equals("")) {
+			return "";
+		}else {
+			return "&searchType="+searchType+"&keyword="+keyword;
+		}
+	}
+	
 }
