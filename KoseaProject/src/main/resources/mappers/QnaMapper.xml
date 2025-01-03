@@ -3,7 +3,7 @@
 <mapper namespace="com.kosea.project.mappers.QnaMapper">
 
 <insert id="write" parameterType="com.kosea.project.vo.QnaVO">
-	<![CDATA[INSERT INTO QNA(qna_no,qna_title,qna_content,qna_writer) VALUES (qna_seq.nextval,#{qna_title},#{qna_content},#{qna_writer})]]>
+	<![CDATA[INSERT INTO QNA(qna_no,qna_title,qna_content,qna_writer,qna_tag) VALUES (qna_seq.nextval,#{qna_title},#{qna_content},#{qna_writer},#{qna_tag})]]>
 </insert>
 
 <!-- 리스트조회 -->
@@ -24,14 +24,74 @@
 	<![CDATA[UPDATE QNA SET qna_title=#{qna_title},qna_content=#{qna_content}, qna_date=SYSDATE WHERE qna_no=#{qna_no}]]>
 </update>
 
-<select id="count" resultType="int">
+
+<select id="count" parameterType="hashMap" resultType="int">
 	<![CDATA[SELECT count(qna_no) FROM QNA]]>
+	<where>
+		<if test="searchType!=null">
+			<choose>
+				<when test="searchType=='title'">
+					qna_title LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="searchType=='content'">
+					qna_content LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="searchType=='title-content'">
+					(qna_title LIKE '%'||#{keyword}||'%' OR qna_content LIKE '%'||#{keyword}||'%')
+				</when>
+				<when test="searchType=='writer'">
+					qna_writer LIKE '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</if>
+		<if test="qna_tag!=null and qna_tag!=''">
+			AND qna_tag=#{qna_tag}
+		</if>
+	</where>
 </select>
 
 <select id="listPage" parameterType="hashMap" resultType="com.kosea.project.vo.QnaVO">
-	<![CDATA[SELECT qna_no,qna_title,qna_content,qna_writer,qna_date from 
-	(SELECT /*+ INDEX_DESC(QNA PK_QNA) */ ROWNUM rn,qna_no,qna_title,qna_content,qna_writer,qna_date 
-	FROM qna WHERE ROWNUM<=#{num}*#{pageNumCnt})
-	 WHERE rn>(#{num}-1)*#{pageNumCnt}]]>
+	<![CDATA[SELECT qna_no,qna_title,qna_content,qna_writer,qna_date,qna_tag from 
+	(SELECT ROWNUM rn,qna_no,qna_title,qna_content,qna_writer,qna_date,qna_tag 
+	FROM (SELECT /*+ INDEX_DESC(QNA PK_QNA) */* FROM qna ]]>
+	<where>
+		<if test="searchType!=null">
+			<if test="searchType.equals('title')">
+				qna_title LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType.equals('content')">
+				qna_content LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType.equals('title-content')">
+				(qna_title LIKE '%'||#{keyword}||'%' OR qna_content LIKE '%'||#{keyword}'%')
+			</if>
+			<if test="searchType.equals('writer')">
+				qna_writer LIKE '%'||#{keyword}||'%'
+			</if>
+		</if>
+	</where>
+	<![CDATA[) WHERE ROWNUM<=#{num}*#{pageNumCnt}) 
+	WHERE rn>(#{num}-1)*#{pageNumCnt}]]>
 </select>
+
+<!-- コメント -->
+<insert id="writeReply" parameterType="com.kosea.project.vo.QnaReVO">
+	<![CDATA[INSERT INTO QNA_RE(qna_rno,qna_no,userId,qna_rcontent) VALUES (QNA_RSEQ.nextval,#{qna_no},#{userId},#{qna_rcontent})]]>
+</insert>
+
+<select id="replyList" parameterType="int" resultType="com.kosea.project.vo.QnaReVO">
+	<![CDATA[SELECT * FROM QNA_RE WHERE qna_no=#{qna_no}]]>
+</select>
+
+<select id="viewReply" parameterType="com.kosea.project.vo.QnaReVO" resultType="com.kosea.project.vo.QnaReVO">
+	<![CDATA[SELECT * FROM QNA_RE WHERE qna_no=#{qna_no} AND qna_rno=#{qna_rno}]]>
+</select>
+
+<update id="modifyReply" parameterType="com.kosea.project.vo.QnaReVO">
+	<![CDATA[UPDATE QNA_RE SET qna_rcontent=#{qna_rcontent}]]>
+</update>
+
+<delete id="deleteReply" parameterType="com.kosea.project.vo.QnaVO">
+	<![CDATA[DELETE FROM QNA_RE WHERE qna_no=#{qna_no} AND qna_rno=#{qna_rno}]]>
+</delete>
 </mapper>
