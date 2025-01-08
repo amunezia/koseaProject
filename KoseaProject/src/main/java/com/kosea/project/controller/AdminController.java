@@ -25,7 +25,7 @@ public class AdminController {
 	public String adminList() {
 		logger.info("관리자가 목록에 진입합니다");
 		List<UsersVO> usersList;
-		return "admin/users/list";
+		return "admin/users/userlist";
 		
 	}
 	

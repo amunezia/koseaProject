@@ -35,7 +35,7 @@ public class QnaController {
 		UsersVO userinfo=(UsersVO) session.getAttribute("userinfo");
 		vo.setQna_writer(userinfo.getUserId());
 		qnaService.write(vo);
-		return "redirect:/qna/qna";
+		return "redirect:/qna/qnaList";
 	}
 	
 	@GetMapping(value="/qnaList")
@@ -56,7 +56,7 @@ public class QnaController {
 		qnaList=qnaService.listPage(page.getNum(),page.getPageNumCnt(),keyword,searchType,tag);
 		
 		model.addAttribute("page",page);
-		model.addAttribute("slect",num);
+		model.addAttribute("select",num);
 		model.addAttribute("qnaList",qnaList);
 	}
 	
