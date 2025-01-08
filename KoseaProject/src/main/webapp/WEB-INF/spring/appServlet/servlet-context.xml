@@ -24,7 +24,7 @@
 	<context:component-scan base-package="com.kosea.project" />
 	
 	<context:component-scan
-		base-package="com.eatsaround" />
+		base-package="com.kosea.project" />
 	<beans:bean id="AdminInterceptor"
 		class="com.kosea.project.interceptor.AdminInterceptor">
 	</beans:bean>
@@ -37,5 +37,20 @@
 		</interceptor>
 	</interceptors>
 	
+	
+	
+	<context:component-scan
+		base-package="com.kosea.project" />
+	<beans:bean id="SellerInterceptor"
+		class="com.kosea.project.interceptor.SellerInterceptor">
+	</beans:bean>
+
+
+	<interceptors>
+		<interceptor>
+			<mapping path="/seller/**" />
+			<beans:ref bean="SellerInterceptor" />
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>

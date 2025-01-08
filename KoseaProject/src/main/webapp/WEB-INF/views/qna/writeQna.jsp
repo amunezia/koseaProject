@@ -5,6 +5,13 @@
 
 <form method="post">
 	<div>
+		<select name="qna_tag">
+			<option value="구매">구매</option>
+			<option value="환불">환불</option>
+			<option value="제품">제품</option>
+		</select>
+	</div>
+	<div>
 		<input type="text" name="qna_title" placeholder="제목">
 	</div>
 	<div>
