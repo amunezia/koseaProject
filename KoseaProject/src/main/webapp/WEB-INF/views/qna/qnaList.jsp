@@ -6,9 +6,9 @@
 
 <jsp:include page="../include/header.jsp" flush="false"/>
 
-<div class="col-md-12">
 <div class="container">
 <div class="row">
+<div class="col-md-12">
 	<div class="table-responsive">
 	<table class="table">
 		<colgroup>
@@ -39,18 +39,20 @@
 	</div>
 	<input type="hidden" name="searchType" value="${page.searchType}">
 	<input type="hidden" name="keyword" value="${page.keyword}">
-	<form>
 	<div class="d-flex justify-content-center">
-		<select name="searchType">
-			<option value="title" <c:if test="${page.searchType eq 'title'}">selected</c:if>>제목</option>
-			<option value="content" <c:if test="${page.searchType eq 'content'}">selected</c:if>>내용</option>
-			<option value="title-content" <c:if test="${page.searchType eq 'title-content'}">selected</c:if>>제목+내용</option>
-			<option value="writer" <c:if test="${page.searchType eq 'writer'}">selected</c:if>>작성자</option>
-		</select>
-		<input type="text" name="keyword" placeholder="검색">
-		<button>검색</button>
-	</div>
+	<form class="form-controll">
+		<div class="input-group">
+			<select name="searchType" class="form-select form-select-sm">
+				<option value="title" <c:if test="${page.searchType eq 'title'}">selected</c:if>>제목</option>
+				<option value="content" <c:if test="${page.searchType eq 'content'}">selected</c:if>>내용</option>
+				<option value="title-content" <c:if test="${page.searchType eq 'title-content'}">selected</c:if>>제목+내용</option>
+				<option value="writer" <c:if test="${page.searchType eq 'writer'}">selected</c:if>>작성자</option>
+			</select>
+			<input type="text" name="keyword" placeholder="검색어" class="form-control">
+			<input type="submit" value="검색" class="btn btn-success">
+		</div>
 	</form>
+	</div>
 	<nav class="d-flex justify-content-center">
 		<ul class="pagination">
 			<c:if test="${page.prev}"><a href="${path}/qna/qnaList?num=${page.startPageNum-1}${page.searchTypeKeyword}" class="page-link">[이전]</a></c:if>
