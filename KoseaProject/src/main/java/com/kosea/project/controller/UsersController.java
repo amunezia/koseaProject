@@ -19,7 +19,10 @@ import com.kosea.project.vo.UsersVO;
 
 @Controller
 public class UsersController {
-
+	
+	@Inject
+	private Utils utils;
+	
 	@Inject
 	private UsersService service;
 
@@ -125,7 +128,7 @@ public class UsersController {
 		
 		 if (email != null && !email.isEmpty()) {
 	            // 이메일 보내기
-	            boolean isMailSent = Utils.sendMail(email, vo.getUserId());
+	            boolean isMailSent = utils.sendMail(email, vo.getUserId());
 		 }
 		
 		rttr.addFlashAttribute("email", email);
@@ -144,35 +147,35 @@ public class UsersController {
 	
 	//메일로 비밀번호 찾기사이트에 userId 전송
 	@GetMapping("/users/reset-password")
-	public String getResetPassword(@RequestParam("userId") String userId, Model model) {
-	    model.addAttribute("userId", userId);
+	public String getResetPassword(@RequestParam("token") String token, Model model) throws Exception {
+		
+		UsersVO user = service.getUserByToken(token);
+	    model.addAttribute("user", user);
 	    return "/users/resetpw";
 	}
 	
 	@PostMapping("/users/reset-password")
-	public String postResetPassword(@RequestParam("userId") String userId,
+	public String postResetPassword(@RequestParam("token") String token,
 	                                 @RequestParam("userPw") String userPw,
 	                                 @RequestParam("userPwRe") String userPwRe,
 	                                 RedirectAttributes rttr) throws Exception {
 
-	    if (userId.contains(",")) {
-	        userId = userId.split(",")[0];
-	    }
+
 	    
 	    if (!userPw.equals(userPwRe)) {
 	        rttr.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
-	        return "redirect:/users/reset-password?userId=" + userId;
+	        return "redirect:/users/reset-password?token=" + token;
 	    }
 
 	    // 비밀번호 변경 로직 (service를 통해 비밀번호 업데이트)
-	    boolean isUpdated = service.updatePw(userId, userPw, userPwRe);
+	    boolean isUpdated = service.resetPw(token, userPw, userPwRe);
 
 	    if (isUpdated) {
 	        rttr.addFlashAttribute("message", "비밀번호가 성공적으로 변경되었습니다.");
 	        return "redirect:/users/signin";  // 로그인 페이지로 리다이렉트
 	    } else {
 	        rttr.addFlashAttribute("message", "비밀번호 변경에 실패했습니다.");
-	        return "redirect:/users/reset-password?userId=" + userId;  // 다시 시도
+	        return "redirect:/users/reset-password?token=" + token;  // 다시 시도
 	    }
 	}
 }

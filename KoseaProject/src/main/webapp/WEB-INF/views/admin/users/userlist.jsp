@@ -29,16 +29,70 @@
 			</tr>
 		</thead>
 		<tbody>
+			<c:forEach var="user" items="${userList}">
 			<tr>
-				<td>${userinfo.userId}</td>
-				<td>${userinfo.email}</td>
-				<td>${userinfo.birthDate}</td>
+				<td>${user.userId}</td>
+				<td>${user.email}</td>
+				<td>${user.birthDate}</td>
 				<td>
+				<form action="${pageContext.request.contextPath}/admin/users/delete" method="post">
+				<input type="hidden" name="userId" value="${user.userId}">
 					<button type="submit" class="btn btn-danger btn-sm">삭제</button>
+					</form>
 				</td>
 			</tr>
+			</c:forEach>
 		</tbody>
 	</table>
+	<c:if test="${not empty userList}">
+					<div class="d-flex justify-content-center align-items-center my-4">
+						<div>
+							<!-- 이전 페이지 버튼 -->
+							<c:if test="${currentPage > 1}">
+								<form
+									action="${pageContext.request.contextPath}/admin/users/userlist"
+									method="get" style="display: inline;">
+									<input type="hidden" name="currentPage"
+										value="${currentPage - 1}" /> <input type="hidden"
+										name="search" value="${param.search}" /> <input type="hidden"
+										name="pageSize" value="${pageSize}" />
+									<button type="submit" class="btn btn-secondary">이전</button>
+								</form>
+							</c:if>
+	
+	<!-- 페이지 번호 -->
+							<c:forEach var="i" begin="1" end="${totalPages}">
+								<c:if test="${i >= currentPage - 2 && i <= currentPage + 2}">
+									<form
+										action="${pageContext.request.contextPath}/admin/users/userlist"
+										method="get" style="display: inline;">
+										<input type="hidden" name="currentPage" value="${i}" /> <input
+											type="hidden" name="search" value="${param.search}" /> <input
+											type="hidden" name="pageSize" value="${pageSize}" />
+										<button type="submit"
+											class="btn ${i == currentPage ? 'btn-primary' : 'btn-outline-primary'}">${i}</button>
+									</form>
+								</c:if>
+							</c:forEach>
+							
+							<!-- 다음 페이지 버튼 -->
+							<c:if test="${currentPage < totalPages}">
+								<form
+									action="${pageContext.request.contextPath}/admin/users/userlist"
+									method="get" style="display: inline;">
+									<input type="hidden" name="currentPage"
+										value="${currentPage + 1}" /> <input type="hidden"
+										name="search" value="${param.search}" /> <input type="hidden"
+										name="pageSize" value="${pageSize}" />
+									<button type="submit" class="btn btn-secondary">다음</button>
+								</form>
+							</c:if>
+	
+	
+	</div>
+	</div>
+	</c:if>
+	
 	</div>
 </div>
 

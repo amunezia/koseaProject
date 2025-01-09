@@ -1,5 +1,6 @@
 package com.kosea.project.dao;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,4 +62,26 @@ public class UsersDAOImpl implements UsersDAO{
 		int result = sql.update(namespace + ".updatePw", uppw);	
 		return result > 0 ;
 	}
+	
+    @Override
+    public UsersVO getUserByToken(String token) throws Exception {
+        return sql.selectOne(namespace + ".getUserByToken", token);
+    }
+    
+    @Override
+    public void saveResetToken(String userId, String token, Date time) throws Exception {
+        Map<String, Object> saveToken = new HashMap<>();
+        saveToken.put("userId", userId);
+        saveToken.put("resetToken", token);
+        saveToken.put("tokenTime", time);
+        
+        sql.update(namespace + ".saveResetToken", saveToken);
+    }
+
+    // 비밀번호 재설정 후 토큰 삭제
+    @Override
+    public void deleteResetToken(String userId) throws Exception {
+        sql.update(namespace + ".deleteResetToken", userId);
+    }
+	
 }

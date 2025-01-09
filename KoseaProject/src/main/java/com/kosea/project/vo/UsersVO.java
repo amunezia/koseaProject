@@ -14,7 +14,21 @@ public class UsersVO {
 	private String email;
 	private int verify;
 	private Date regDate;
+	private String resetToken;
+	private Date tokenTime;
 	
+	public Date getTokenTime() {
+		return tokenTime;
+	}
+	public void setTokenTime(Date tokenTime) {
+		this.tokenTime = tokenTime;
+	}
+	public String getResetToken() {
+		return resetToken;
+	}
+	public void setResetToken(String resetToken) {
+		this.resetToken = resetToken;
+	}
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthDate;
 	
