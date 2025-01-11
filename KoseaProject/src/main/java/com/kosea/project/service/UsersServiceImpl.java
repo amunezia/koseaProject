@@ -1,5 +1,7 @@
 package com.kosea.project.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,8 +53,32 @@ public class UsersServiceImpl implements UsersService {
 	public String findpw(UsersVO vo) throws Exception {
 			return dao.findpw(vo);
 	}
-	
+	//기존 비밀번호찾기후 변경
+	@Override
 	public boolean updatePw(String userId, String userPw, String userPwRe)throws Exception{
 		return dao.updatePw(userId, userPw, userPwRe); 
+	}
+	
+	@Override
+    public boolean resetPw(String token, String userPw, String userPwRe) throws Exception {
+
+        UsersVO user = dao.getUserByToken(token);
+        
+        if (user != null && user.getTokenTime().after(new Date())) {
+
+            boolean o =dao.updatePw(user.getUserId(), userPw, userPwRe);
+            
+            if(o) {
+            dao.deleteResetToken(user.getUserId());
+         
+            return true;
+            }
+        } 
+            return false;   
+	}
+	
+	@Override
+	public UsersVO getUserByToken(String token) throws Exception {
+		return dao.getUserByToken(token);
 	}
 }

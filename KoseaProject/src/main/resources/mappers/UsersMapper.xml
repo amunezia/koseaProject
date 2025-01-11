@@ -34,4 +34,17 @@
 	<![CDATA[UPDATE users SET userPw = #{userPw}, userPwRe = #{userPwRe} WHERE userId = #{userId}]]>
 </update>
 
+    <select id="getUserByToken" resultType="com.kosea.project.vo.UsersVO">
+        <![CDATA[SELECT * FROM users WHERE resetToken = #{token}  AND tokenTime >SYSDATE]]>
+    </select>
+
+<update id="saveResetToken" parameterType="map">
+	<![CDATA[UPDATE users SET resetToken = #{resetToken}, tokenTime = #{tokenTime} WHERE userId = #{userId}]]>
+</update>
+
+    <!-- 비밀번호 재설정 후 토큰 삭제 -->
+<update id="deleteResetToken" parameterType="string">
+	<![CDATA[UPDATE users SET resetToken = NULL, tokenTime = NULL WHERE userId = #{userId}]]>
+</update>
+
 </mapper>

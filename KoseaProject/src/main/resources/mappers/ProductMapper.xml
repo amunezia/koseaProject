@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kosea.project.mappers.ProductMapper">
+
+    <!-- ResultMap定義 -->
+    <resultMap id="productResultMap" type="com.kosea.project.vo.ProductVO">
+        <result property="productId" column="PRODUCT_ID"/>
+        <result property="productName" column="PRODUCT_NAME"/>
+        <result property="description" column="DESCRIPTION"/>
+        <result property="price" column="PRICE"/>
+        <result property="stock" column="STOCK"/>
+        <result property="categoryId" column="CATEGORY_ID"/>
+    </resultMap>
+
+    <!-- 商品追加 -->
+    <insert id="addProduct" parameterType="com.kosea.project.vo.ProductVO">
+        INSERT INTO PRODUCTS (PRODUCT_NAME, PRICE, DESCRIPTION, CATEGORY_ID, STOCK)
+        VALUES (#{productName}, #{price}, #{description}, #{categoryId}, #{stock})
+    </insert>
+
+    <!-- 商品更新 -->
+    <update id="updateProduct" parameterType="com.kosea.project.vo.ProductVO">
+        UPDATE PRODUCTS
+        SET PRODUCT_NAME = #{productName}, PRICE = #{price}, DESCRIPTION = #{description},
+            CATEGORY_ID = #{categoryId}, STOCK = #{stock}
+        WHERE PRODUCT_ID = #{productId}
+    </update>
+
+    <!-- 商品削除 -->
+    <delete id="deleteProduct" parameterType="int">
+        DELETE FROM PRODUCTS WHERE PRODUCT_ID = #{productId}
+    </delete>
+
+    <!-- 商品一覧取得 -->
+    <select id="getProductList" resultMap="productResultMap">
+        SELECT PRODUCT_ID, PRODUCT_NAME, DESCRIPTION, PRICE, STOCK, CATEGORY_ID
+        FROM PRODUCTS
+    </select>
+
+    <!-- 商品IDで商品取得 -->
+    <select id="getProductById" parameterType="int" resultMap="productResultMap">
+        SELECT PRODUCT_ID, PRODUCT_NAME, DESCRIPTION, PRICE, STOCK, CATEGORY_ID
+        FROM PRODUCTS
+        WHERE PRODUCT_ID = #{productId}
+    </select>
+
+</mapper>
