@@ -16,10 +16,10 @@
 	<div class="form-group">
 		<textarea name="qna_content" class="form-control mb-3">${qnaModify.qna_content}</textarea>
 	</div>
-	<div class="form-group d-flex">
-		<input type="submit" value="제출" class="btn btn-primary justify-content-end">
+	<div class="form-group d-flex justify-content-end">
+		<input type="submit" value="제출" class="btn btn-primary">
+		<a href="${path}/qna/viewQna?qna_no=${qnaModify.qna_no}" class="btn btn-secondary">돌아가기</a>
 	</div>
-	<a href=""
 </form>
 </div>
 </div>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kosea.project.service.QnaService;
 import com.kosea.project.vo.QnaReVO;
@@ -72,9 +73,19 @@ public class QnaController {
 	}
 	
 	@GetMapping(value="/qnaDelete")
-	public String getQnaDelete(@RequestParam("qna_no")int qna_no) throws Exception{
-		qnaService.delete(qna_no);
-		return "redirect:/qna/qnaList";
+	public String getQnaDelete(@RequestParam("qna_no")int qna_no,HttpServletRequest req,RedirectAttributes rttr) throws Exception{
+		HttpSession session=req.getSession();
+		UsersVO userinfo=(UsersVO) session.getAttribute("userinfo");
+		if(userinfo!=null) {
+			if(userinfo.getUserId().equals(qnaService.view(qna_no).getQna_writer())) {
+				qnaService.delete(qna_no);
+				return "redirect:/qna/qnaList";
+			}
+			rttr.addFlashAttribute("Message","유저정보가 일치하지 않습니다");
+			return "redirect:/qna/viewQna?qna_no="+qna_no;
+		}
+		rttr.addFlashAttribute("Message","로그인을 해주세요");
+		return "redirect:/users/signin";
 	}
 	
 	@GetMapping(value="/qnaModify")

@@ -76,3 +76,6 @@
 
 
 <jsp:include page="../include/footer.jsp" flush="false"/>
+<script>
+	var ms=
+</script>
