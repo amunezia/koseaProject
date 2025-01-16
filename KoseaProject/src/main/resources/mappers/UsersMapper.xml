@@ -10,6 +10,10 @@
 	<![CDATA[INSERT INTO users (userId,userPw,userPwRe,userName,phoneNum,email,birthDate) VALUES (#{userId},#{userPw},#{userPwRe},#{userName},#{phoneNum},#{email},#{birthDate})]]>
 </insert>
 
+<insert id="signupseller" parameterType="com.kosea.project.vo.UsersVO">
+	<![CDATA[INSERT INTO users (userId,userPw,userPwRe,userName,phoneNum,email,verify,birthDate) VALUES (#{userId},#{userPw},#{userPwRe},#{userName},#{phoneNum},#{email},5,#{birthDate})]]>
+</insert>
+
 <select id="signin" resultType="com.kosea.project.vo.UsersVO">
 	<![CDATA[SELECT userId,userPw,verify FROM users WHERE userId=#{userId}]]>
 </select>

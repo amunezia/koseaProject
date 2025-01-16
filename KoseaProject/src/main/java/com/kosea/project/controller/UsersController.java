@@ -52,6 +52,17 @@ public class UsersController {
 		return "redirect:/";
 	}
 	
+	//판매자 회원가입
+    @GetMapping(value="/users/signupseller")
+	public void getSignupseller() throws Exception{
+    }
+    
+	@PostMapping(value="/users/signupseller")
+	public String postSignupseller(UsersVO vo,RedirectAttributes rttr) throws Exception{
+
+		service.signupseller(vo);
+		return "redirect:/";
+	}
 	
 	//로그인 기능
 	@PostMapping(value="/users/signin")

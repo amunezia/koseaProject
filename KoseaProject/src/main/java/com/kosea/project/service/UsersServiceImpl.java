@@ -29,6 +29,10 @@ public class UsersServiceImpl implements UsersService {
 		
 	}
 
+	public void signupseller(UsersVO vo) throws Exception {
+		dao.signupseller(vo);
+	}
+	
 	@Override
 	public UsersVO signin(UsersVO vo) throws Exception {
 			return dao.signin(vo);
