@@ -27,6 +27,10 @@ public class UsersDAOImpl implements UsersDAO{
 		sql.insert(namespace+".signup",vo);
 	}
 
+	public void signupseller(UsersVO vo) throws Exception {
+		sql.insert(namespace+".signupseller",vo);
+	}
+	
 	@Override
 	public UsersVO signin(UsersVO vo) throws Exception {
 		return sql.selectOne(namespace+".signin",vo);

@@ -86,7 +86,7 @@
         <c:otherwise>
             <a href="${path}/users/signin" class="btn btn-outline-primary me-2">로그인</a>
             <a href="${path}/users/signup" class="btn btn-outline-success me-2">회원가입</a>
-            <a href="${path}/users/signup" class="btn btn-outline-success">판매자 가입</a>
+            <a href="${path}/users/signupseller" class="btn btn-outline-success">판매자 가입</a>
         </c:otherwise>
     </c:choose>
    

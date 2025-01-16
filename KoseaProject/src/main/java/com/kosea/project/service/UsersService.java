@@ -8,6 +8,8 @@ public interface UsersService {
 	
 	void signup(UsersVO vo) throws Exception;
 	
+	void signupseller(UsersVO vo) throws Exception ;
+	
 	UsersVO signin(UsersVO vo) throws Exception;
 	
 	UsersVO viewUserInfo(UsersVO vo)throws Exception;
